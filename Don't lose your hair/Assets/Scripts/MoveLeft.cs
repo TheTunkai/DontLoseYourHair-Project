@@ -36,6 +36,7 @@ public class MoveLeft : MonoBehaviour
         if (collision.collider.CompareTag("Player"))
         {
             speed = 0;
+            Destroy(gameObject);
         }
     }
 

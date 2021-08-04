@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+public delegate void Notify();
+
 public class PlayerController : MonoBehaviour
 {   
     [SerializeField]
@@ -16,6 +19,8 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody2D playerRb;
     private BoxCollider2D playerCd;
+
+    public event Notify heartLost;
 
     // Start is called before the first frame update
     void Start()
@@ -57,7 +62,11 @@ public class PlayerController : MonoBehaviour
         
         if (collision.collider.CompareTag("Obstacle"))
         {
-            Die();
+            if (heartLost != null)
+            {
+                heartLost.Invoke();
+            }
+            
         }
     }
 
@@ -70,12 +79,6 @@ public class PlayerController : MonoBehaviour
 
         playerCd.size = scalePlayerCd;
 
-    }
-
-
-    public void Die()
-    {
-        Debug.Log("Hit an Obstacle");
     }
 
 }
