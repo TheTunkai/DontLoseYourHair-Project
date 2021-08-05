@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-
-public delegate void Notify();
 
 public class PlayerController : MonoBehaviour
 {   
@@ -20,6 +19,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D playerRb;
     private BoxCollider2D playerCd;
 
+    public delegate void Notify();
     public event Notify heartLost;
 
     // Start is called before the first frame update
@@ -60,13 +60,10 @@ public class PlayerController : MonoBehaviour
             isOnGround = true;
         }
         
-        if (collision.collider.CompareTag("Obstacle"))
+        if (collision.collider.CompareTag("Obstacle")) // raises event upon collision
         {
-            if (heartLost != null)
-            {
-                heartLost.Invoke();
-            }
-            
+            heartLost?.Invoke();
+
         }
     }
 

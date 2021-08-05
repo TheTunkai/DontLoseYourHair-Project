@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class MoveLeft : MonoBehaviour
 {
@@ -33,7 +34,7 @@ public class MoveLeft : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.CompareTag("Player"))
+        if (collision.collider.CompareTag("Player")) // obstacle is destroyed upon collision
         {
             speed = 0;
             Destroy(gameObject);

@@ -246,6 +246,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 809478802}
+  - component: {fileID: 809478803}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -267,6 +268,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &809478803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 809478801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f4626801157b59418de1e69c87a2d6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerScore: 0
+  timePoints: 0
 --- !u!1 &1289936339
 GameObject:
   m_ObjectHideFlags: 0
@@ -292,7 +307,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1289936339}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.854926, y: -0.021555454, z: -12.105663}
+  m_LocalPosition: {x: 19, y: -2.5, z: -12.105663}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -312,7 +327,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obstaclePrefabs:
   - {fileID: 5208102554443743741, guid: f0e5a905a989c6e419813f0e5579dc39, type: 3}
-  spawnPos: {x: 19, y: -1}
+  - {fileID: 7079210568026786884, guid: 333105a0dbf305843b0d396f70f87e14, type: 3}
+  spawnPosJump: {x: 19, y: -1}
+  spawnPosCrouch: {x: 19, y: 0.8}
   spawnStartTime: 2
   spawnRate: 3
 --- !u!1 &1800752533
@@ -326,6 +343,7 @@ GameObject:
   - component: {fileID: 1800752534}
   - component: {fileID: 1800752536}
   - component: {fileID: 1800752535}
+  - component: {fileID: 1800752537}
   m_Layer: 0
   m_Name: Floor
   m_TagString: Floor
@@ -424,6 +442,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!50 &1800752537
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1800752533}
+  m_BodyType: 2
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &2138817094
 GameObject:
   m_ObjectHideFlags: 0
