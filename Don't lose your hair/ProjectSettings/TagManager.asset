@@ -6,16 +6,18 @@ TagManager:
   tags:
   - Floor
   - Obstacle
+  - Enemy
+  - Projectile
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Obstacle
   - Water
   - UI
-  - 
-  - 
-  - 
+  - Enemy
+  - Player
+  - Projectile
   - 
   - 
   - 

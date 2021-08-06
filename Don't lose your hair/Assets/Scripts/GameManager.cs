@@ -7,17 +7,18 @@ using System;
 
 public class GameManager : MonoBehaviour
 {
-    private static GameManager instance;
+    public static GameManager instance;
     private PlayerController playerScript;
 
-    private int playerHearts = 3;
+    public int playerHearts = 3;
     public int playerScore = 0;
     public float timePoints = 0;
 
     private bool gameOver = false;
 
-    public delegate void ChangedGameState();
-    public event ChangedGameState playerLost; 
+    public event Action playerLost;
+    public event Action startEnemyWave;
+
 
     // Start is called before the first frame update
     void Awake()
@@ -53,6 +54,11 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (playerScore == 10 && SpawnManager.enemyCount == 0)
+        {
+            startEnemyWave?.Invoke();
+        }
+
         timePoints += Time.deltaTime;
 
         if (timePoints >= 5)
@@ -73,6 +79,7 @@ public class GameManager : MonoBehaviour
         {
             playerLost?.Invoke();
         }
+
 
     }
 

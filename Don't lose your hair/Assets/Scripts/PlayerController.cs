@@ -12,6 +12,9 @@ public class PlayerController : MonoBehaviour
     private float crouchHeight = 0.5f;
     private Vector2 scalePlayerCd = new Vector2(1f, 0.5f);
 
+    public Vector3 target;
+    public GameObject projectilePrefab;
+    public float projectileSpeed = 25f;
 
     private bool isOnGround = true;
 
@@ -19,8 +22,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D playerRb;
     private BoxCollider2D playerCd;
 
-    public delegate void Notify();
-    public event Notify heartLost;
+   public event Action heartLost;
 
     // Start is called before the first frame update
     void Start()
@@ -33,6 +35,9 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         verticalInput = Input.GetAxis("Vertical");
+        target = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.transform.position.z));
+
+        Vector3 difference = target - transform.position;
 
         if (Input.GetKeyDown(KeyCode.Space) && isOnGround) // make player jump if he is on the ground
         {
@@ -48,6 +53,14 @@ public class PlayerController : MonoBehaviour
         {
             transform.localScale = Vector3.one;
             playerCd.size = Vector2.one;
+        }
+
+        if (Input.GetButtonDown("Fire1"))
+        {
+            float distance = difference.magnitude;
+            Vector2 direction = difference / distance;
+            direction.Normalize();
+            Shoot(direction);
         }
 
     }
@@ -75,6 +88,16 @@ public class PlayerController : MonoBehaviour
         transform.localScale = scale;
 
         playerCd.size = scalePlayerCd;
+
+    }
+
+    private void Shoot(Vector2 direction) // instantiates projectile with given speed and direction of flight
+    {
+        GameObject projectile = Instantiate(projectilePrefab);
+
+        projectile.transform.position = transform.position;
+
+        projectile.GetComponent<Rigidbody2D>().velocity = projectileSpeed * direction;
 
     }
 
