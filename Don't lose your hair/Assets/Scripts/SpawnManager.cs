@@ -5,20 +5,19 @@ using System;
 
 public class SpawnManager : MonoBehaviour
 {
-    public GameObject[] obstaclePrefabs;
-    public GameObject[] enemyPrefabs;
-    
-
-    public Vector2 spawnPosJump = new Vector2(20f, -2f);
-    public Vector2 spawnPosCrouch = new Vector2(20f, 0.8f);
-    public Vector2 spawnPosFlyingEnemy = new Vector2(19f, 3f);
-
-    public float spawnStartTime = 2f;
-    public float spawnRate = 3f;
-
+    #region Variables
+    [SerializeField] private Vector2 spawnPosJump = new Vector2(20f, -2f);
+    [SerializeField] private Vector2 spawnPosCrouch = new Vector2(20f, 0.8f);
+    [SerializeField] private Vector2 spawnPosFlyingEnemy = new Vector2(19f, 3f);
+    [SerializeField] private float spawnStartTime = 2f;
+    [SerializeField] private float spawnRate = 3f;
     public static int enemyCount = 0;
 
-    public bool enemySpawnStarted = false;
+    [SerializeField] private bool enemySpawnStarted = false;
+
+    public GameObject[] obstaclePrefabs;
+    public GameObject[] enemyPrefabs;
+    #endregion
 
 
     // Start is called before the first frame update
@@ -41,7 +40,7 @@ public class SpawnManager : MonoBehaviour
 
         int index = UnityEngine.Random.Range(0, obstaclePrefabs.Length);
 
-        if (obstaclePrefabs[index].name == "Obstacle_Jump")
+        if (obstaclePrefabs[index].name == "Obstacle_Jump" || obstaclePrefabs[index].name == "Obstacle_Shoot")
         {
             spawnPos = spawnPosJump;
         }

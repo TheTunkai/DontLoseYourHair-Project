@@ -7,18 +7,19 @@ using System;
 
 public class GameManager : MonoBehaviour
 {
+    #region Variables
     public static GameManager instance;
     private PlayerController playerScript;
 
     public int playerHearts = 3;
-    public int playerScore = 0;
-    public float timePoints = 0;
+    [SerializeField] private int playerScore = 0;
+    [SerializeField] private float timePoints = 0;
 
-    private bool gameOver = false;
+    [SerializeField] private bool gameOver = false;
 
     public event Action playerLost;
     public event Action startEnemyWave;
-
+    #endregion
 
     // Start is called before the first frame update
     void Awake()

@@ -5,14 +5,13 @@ using System;
 
 public class Enemy : MonoBehaviour
 {
+    #region Variables
     public float hearts = 2;
-    
-    protected float speed = 22f;
+   [SerializeField] protected float speed = 22f;
+   [SerializeField] protected float leftBoundary = -21f;
 
-    protected float leftBoundary = -21f;
-
-    public PlayerController player;
-
+    private PlayerController player;
+    #endregion
 
     // Start is called before the first frame update
     void Start()

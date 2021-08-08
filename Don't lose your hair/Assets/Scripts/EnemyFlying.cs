@@ -4,14 +4,13 @@ using UnityEngine;
 
 public class EnemyFlying : Enemy
 {
+    #region Variables
+    [SerializeField] private int suckInterval = 4;
+    [SerializeField] private Vector2 endPosition = new Vector2(-9f, 3f);
     
-    public int suckInterval = 4;
+    [SerializeField] private bool suckingStarted = false;
+    #endregion
 
-    public Vector2 endPosition = new Vector2(-9f, 3f);
-
-    public bool suckingStarted = false;
-
-  
 
 
     // Start is called before the first frame update

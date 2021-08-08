@@ -5,24 +5,26 @@ using System;
 
 
 public class PlayerController : MonoBehaviour
-{   
-    [SerializeField]
-    private float jumpForce = 15f;
-    private float verticalInput = 0;
-    private float crouchHeight = 0.5f;
-    private Vector2 scalePlayerCd = new Vector2(1f, 0.5f);
+{
+    #region Variables
+    [SerializeField] private float jumpForce = 15f;
+    [SerializeField] private float verticalInput = 0;
+    [SerializeField] private float crouchHeight = 0.5f;
+    [SerializeField] private Vector2 scalePlayerCd = new Vector2(1f, 0.5f);
+    [SerializeField] private Vector3 target;
+    [SerializeField] private float projectileSpeed = 20f;
 
-    public Vector3 target;
+    [SerializeField] private bool isOnGround = true;
+
     public GameObject projectilePrefab;
-    public float projectileSpeed = 25f;
-
-    private bool isOnGround = true;
-
-
     private Rigidbody2D playerRb;
     private BoxCollider2D playerCd;
+    #endregion
 
-   public event Action heartLost;
+    #region Events
+    public event Action heartLost;
+    #endregion
+
 
     // Start is called before the first frame update
     void Start()

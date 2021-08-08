@@ -5,13 +5,10 @@ using System;
 
 public class MoveLeft : MonoBehaviour
 {
-    [SerializeField]
-    private float speed = 20f;
-
-
-    private float leftBoundary = -21f;
-
-
+    #region Variables
+    [SerializeField] private float speed = 20f;
+    [SerializeField] private float leftBoundary = -21f;
+    #endregion
 
 
     // Start is called before the first frame update

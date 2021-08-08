@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    public float lifeTime = 3f;
-
-    public float xBoundary = 20f;
-    public float lowerBoundary = -6f;
+    #region Variables
+    [SerializeField] private float lifeTime = 3f;
+    [SerializeField] private float xBoundary = 20f;
+    [SerializeField] private float lowerBoundary = -6f;
+    #endregion
 
     private void Start()
     {
@@ -28,6 +29,12 @@ public class Projectile : MonoBehaviour
         {
             Enemy enemy = collision.GetComponent<Enemy>();
             enemy.hearts--;
+            Destroy(gameObject);
+        }
+
+        if (collision.CompareTag("Obstacle") && collision.name.Contains("Obstacle_Shoot"))
+        {
+            Destroy(collision.gameObject);
             Destroy(gameObject);
         }
 
