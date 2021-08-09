@@ -36,33 +36,36 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        verticalInput = Input.GetAxis("Vertical");
-        target = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.transform.position.z));
-
-        Vector3 difference = target - transform.position;
-
-        if (Input.GetKeyDown(KeyCode.Space) && isOnGround) // make player jump if he is on the ground
+        if (!GameManager.instance.gameIsPaused)
         {
-            playerRb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-            isOnGround = false;
-        }
+            verticalInput = Input.GetAxis("Vertical");
+            target = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.transform.position.z));
 
-        if (verticalInput < 0) // player crouches with negative Input on the vertical axis
-        {
-            Crouch();
-        }
-        else
-        {
-            transform.localScale = Vector3.one;
-            playerCd.size = Vector2.one;
-        }
+            Vector3 difference = target - transform.position;
 
-        if (Input.GetButtonDown("Fire1"))
-        {
-            float distance = difference.magnitude;
-            Vector2 direction = difference / distance;
-            direction.Normalize();
-            Shoot(direction);
+            if (Input.GetKeyDown(KeyCode.Space) && isOnGround) // make player jump if he is on the ground
+            {
+                playerRb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+                isOnGround = false;
+            }
+
+            if (verticalInput < 0) // player crouches with negative Input on the vertical axis
+            {
+                Crouch();
+            }
+            else
+            {
+                transform.localScale = Vector3.one;
+                playerCd.size = Vector2.one;
+            }
+
+            if (Input.GetButtonDown("Fire1"))
+            {
+                float distance = difference.magnitude;
+                Vector2 direction = difference / distance;
+                direction.Normalize();
+                Shoot(direction);
+            }
         }
 
     }
