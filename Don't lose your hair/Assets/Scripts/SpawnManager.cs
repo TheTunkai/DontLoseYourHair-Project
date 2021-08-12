@@ -9,9 +9,8 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private Vector2 spawnPosJump = new Vector2(20f, -2f);
     [SerializeField] private Vector2 spawnPosCrouch = new Vector2(20f, 0.8f);
     [SerializeField] private Vector2 spawnPosFlyingEnemy = new Vector2(19f, 3f);
-    [SerializeField] private float spawnStartTime = 2f;
-    [SerializeField] private float spawnRate = 3f;
-    public static int enemyCount = 0;
+    [SerializeField] private float obstacleSpawnRate = 3f;
+    [SerializeField] private float enemySpawnRate = 4f;
 
     [SerializeField] private bool enemySpawnStarted = false;
 
@@ -24,9 +23,16 @@ public class SpawnManager : MonoBehaviour
     void Start()
     {
         GameManager.instance.startEnemyWave += startEnemySpawning;
-
-        InvokeRepeating("SpawnObstacle", spawnStartTime, spawnRate);
+        GameManager.instance.playerLost += Instance_playerLost;
+      
+        StartCoroutine(SpawningObstacles());
     }
+
+    private void Instance_playerLost()
+    {
+        StopAllCoroutines();
+    }
+
 
     // Update is called once per frame
     void Update()
@@ -66,7 +72,7 @@ public class SpawnManager : MonoBehaviour
 
         Instantiate(enemyPrefabs[index], spawnPos, enemyPrefabs[index].transform.rotation);
 
-        enemyCount++;
+        GameManager.instance.enemyCount++;
 
     }
 
@@ -80,13 +86,22 @@ public class SpawnManager : MonoBehaviour
 
     IEnumerator SpawningEnemies() // starts enemy spawning with given rate and number of enemies
     {
-        while(enemyCount < 8)
+        while(GameManager.instance.enemyCount < 8)
         {
             SpawnEnemy();
-            yield return new WaitForSeconds(4);
+            yield return new WaitForSeconds(enemySpawnRate);
         }
 
-        enemyCount = 0;
+        GameManager.instance.enemyCount = 0;
 
+    }
+
+    IEnumerator SpawningObstacles()
+    {
+        while (!GameManager.instance.gameOver && !GameManager.instance.gameIsPaused)
+        {
+            yield return new WaitForSeconds(obstacleSpawnRate);
+            SpawnObstacle();
+        }
     }
 }

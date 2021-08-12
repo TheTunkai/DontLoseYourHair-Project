@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using UnityEngine.SceneManagement;
 
 
 
@@ -12,13 +13,16 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     private PlayerController playerScript;
     public GameObject pauseMenu;
+    public GameObject gameOverMenu;
     public Text scoreText;
 
     public int playerHearts = 3;
+    public int enemyCount = 0;
     [SerializeField] private int playerScore = 0;
     [SerializeField] private float timePoints = 0;
 
-    [SerializeField] private bool gameOver = false;
+
+    public bool gameOver = false;
     public bool gameIsPaused = false;
 
     public event Action playerLost;
@@ -37,7 +41,7 @@ public class GameManager : MonoBehaviour
             instance = this;
         }
 
-        DontDestroyOnLoad(instance);
+       
     }
 
     private void Start()
@@ -45,6 +49,7 @@ public class GameManager : MonoBehaviour
         playerHearts = 3;
         playerScore = 0;
         timePoints = 0;
+        
 
         playerScript = FindObjectOfType<PlayerController>();
 
@@ -53,6 +58,11 @@ public class GameManager : MonoBehaviour
         if (pauseMenu == null)
         {
             pauseMenu = GameObject.Find("PauseMenu");
+        }
+
+        if (gameOverMenu == null)
+        {
+            gameOverMenu = GameObject.Find("GameOverMenu");
         }
     }
 
@@ -65,45 +75,51 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (playerScore == 10 && SpawnManager.enemyCount == 0)
+        if (!gameOver)
         {
-            startEnemyWave?.Invoke();
+            if (playerScore == 10 && enemyCount == 0)
+            {
+                startEnemyWave?.Invoke();
+            }
+
+            timePoints += Time.deltaTime;
+
+            if (timePoints >= 2.5)
+            {
+                UpdateScore(1);
+                timePoints = 0;
+            }
+
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                gameIsPaused = !gameIsPaused;
+
+                if (gameIsPaused)
+                {
+                    PauseGame();
+                }
+                else if (!gameIsPaused)
+                {
+                    ResumeGame();
+                }
+            }
         }
-
-        timePoints += Time.deltaTime;
-
-        if (timePoints >= 2.5)
-        {
-            UpdateScore(1);
-            timePoints = 0;
-        }
-
 
 
         if (playerHearts == 0)
         {
-            Debug.Log("You lost!");
             gameOver = true;
         }
 
         if (gameOver)
         {
+            gameOverMenu.SetActive(true);
             playerLost?.Invoke();
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            gameIsPaused = !gameIsPaused;
-        }
+        
 
-        if (gameIsPaused)
-        {
-            PauseGame();
-        }
-        else if (!gameIsPaused)
-        {
-            ResumeGame();
-        }
+        
 
     }
 
@@ -130,5 +146,20 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
         gameIsPaused = false;
         pauseMenu.SetActive(false);
+    }
+
+    public void RestartGame()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        playerScore = 0;
+        playerHearts = 3;
+        timePoints = 0;
+        gameOver = false;
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }

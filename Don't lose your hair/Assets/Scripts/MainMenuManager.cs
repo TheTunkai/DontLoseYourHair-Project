@@ -2,28 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using System;
 using UnityEngine.SceneManagement;
+using System;
 
-public class PauseManager : MonoBehaviour
+public class MainMenuManager : MonoBehaviour
 {
     public Canvas optionsMenu;
-    public Canvas mainPauseMenu;
+    public Canvas mainMenu;
 
-    public void BackToMenu()
+    public void StartGame()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
 
     public void OpenOptions()
     {
-        mainPauseMenu.gameObject.SetActive(false);
+        mainMenu.gameObject.SetActive(false);
         optionsMenu.gameObject.SetActive(true);
     }
 
     public void CloseOptions()
     {
-        mainPauseMenu.gameObject.SetActive(true);
+        mainMenu.gameObject.SetActive(true);
         optionsMenu.gameObject.SetActive(false);
     }
 }

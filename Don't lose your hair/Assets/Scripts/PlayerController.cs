@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!GameManager.instance.gameIsPaused)
+        if (!GameManager.instance.gameIsPaused && !GameManager.instance.gameOver)
         {
             verticalInput = Input.GetAxis("Vertical");
             target = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.transform.position.z));
