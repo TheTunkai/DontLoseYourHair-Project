@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     public GameObject pauseMenu;
     public GameObject gameOverMenu;
     public Text scoreText;
+    public Text endScoreText;
 
     public int playerHearts = 3;
     public int enemyCount = 0;
@@ -114,6 +115,7 @@ public class GameManager : MonoBehaviour
         if (gameOver)
         {
             gameOverMenu.SetActive(true);
+            endScoreText.text = "Your Score: " + playerScore;
             playerLost?.Invoke();
         }
 
@@ -148,7 +150,7 @@ public class GameManager : MonoBehaviour
         pauseMenu.SetActive(false);
     }
 
-    public void RestartGame()
+    public void RestartGame() // loads game scene
     {
         Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -158,7 +160,7 @@ public class GameManager : MonoBehaviour
         gameOver = false;
     }
 
-    public void QuitGame()
+    public void QuitGame() // quits game out of editor
     {
         Application.Quit();
     }

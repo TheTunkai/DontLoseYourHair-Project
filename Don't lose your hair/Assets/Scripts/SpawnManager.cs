@@ -28,7 +28,7 @@ public class SpawnManager : MonoBehaviour
         StartCoroutine(SpawningObstacles());
     }
 
-    private void Instance_playerLost()
+    private void Instance_playerLost() // stops coroutines when player lost
     {
         StopAllCoroutines();
     }
@@ -76,7 +76,7 @@ public class SpawnManager : MonoBehaviour
 
     }
 
-    private void startEnemySpawning()
+    private void startEnemySpawning() // is called, when condition for enemies is met
     {
         if (!enemySpawnStarted)
         {
@@ -96,9 +96,9 @@ public class SpawnManager : MonoBehaviour
 
     }
 
-    IEnumerator SpawningObstacles()
+    IEnumerator SpawningObstacles() // spawns obstacles as long as game isn't over
     {
-        while (!GameManager.instance.gameOver && !GameManager.instance.gameIsPaused)
+        while (!GameManager.instance.gameOver)
         {
             yield return new WaitForSeconds(obstacleSpawnRate);
             SpawnObstacle();

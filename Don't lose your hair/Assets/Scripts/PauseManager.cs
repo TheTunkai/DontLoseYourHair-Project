@@ -10,18 +10,18 @@ public class PauseManager : MonoBehaviour
     public Canvas optionsMenu;
     public Canvas mainPauseMenu;
 
-    public void BackToMenu()
+    public void BackToMenu() // loads main menu scene
     {
         SceneManager.LoadScene(0);
     }
 
-    public void OpenOptions()
+    public void OpenOptions() // changes canvas to options menu
     {
         mainPauseMenu.gameObject.SetActive(false);
         optionsMenu.gameObject.SetActive(true);
     }
 
-    public void CloseOptions()
+    public void CloseOptions() // changes canvas to pause menu
     {
         mainPauseMenu.gameObject.SetActive(true);
         optionsMenu.gameObject.SetActive(false);
