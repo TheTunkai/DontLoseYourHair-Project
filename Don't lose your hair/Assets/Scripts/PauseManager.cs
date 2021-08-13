@@ -7,8 +7,10 @@ using UnityEngine.SceneManagement;
 
 public class PauseManager : MonoBehaviour
 {
+    #region Variables
     public Canvas optionsMenu;
     public Canvas mainPauseMenu;
+    #endregion
 
     public void BackToMenu() // loads main menu scene
     {

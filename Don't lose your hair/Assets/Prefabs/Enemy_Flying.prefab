@@ -134,6 +134,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb37a516f5560984eb2b1587bb04db09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  endPosition: {x: -9, y: 3}
+  hearts: 2
+  speed: 22
+  leftBoundary: -21
   suckInterval: 3
+  endPosition: {x: -9, y: 3}
+  suckSpeed: 0.2

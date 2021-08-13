@@ -7,8 +7,10 @@ using System;
 
 public class MainMenuManager : MonoBehaviour
 {
+    #region Variables
     public Canvas optionsMenu;
     public Canvas mainMenu;
+    #endregion
 
     public void StartGame() // loads main game scene
     {

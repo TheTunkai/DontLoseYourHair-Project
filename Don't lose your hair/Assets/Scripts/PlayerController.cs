@@ -13,6 +13,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Vector2 scalePlayerCd = new Vector2(1f, 0.5f);
     [SerializeField] private Vector3 target;
     [SerializeField] private float projectileSpeed = 20f;
+    [SerializeField] private float jumpCost = 0.1f;
+    [SerializeField] private float crouchCost = 0.5f;
+    [SerializeField] private float shootCost = 0.2f;
+    [SerializeField] private float collisionCost = 0.4f;
 
     [SerializeField] private bool isOnGround = true;
 
@@ -43,9 +47,10 @@ public class PlayerController : MonoBehaviour
 
             Vector3 difference = target - transform.position;
 
-            if (Input.GetKeyDown(KeyCode.Space) && isOnGround) // make player jump if he is on the ground
+            if (Input.GetKeyDown(KeyCode.Space) && isOnGround && UIManager.instance.plushReserve - jumpCost >= 0) // make player jump if he is on the ground
             {
                 playerRb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+                UIManager.instance.plushReserve -= jumpCost;
                 isOnGround = false;
             }
 
@@ -59,7 +64,7 @@ public class PlayerController : MonoBehaviour
                 playerCd.size = Vector2.one;
             }
 
-            if (Input.GetButtonDown("Fire1"))
+            if (Input.GetButtonDown("Fire1") && UIManager.instance.plushReserve - shootCost >= 0)
             {
                 float distance = difference.magnitude;
                 Vector2 direction = difference / distance;
@@ -80,6 +85,15 @@ public class PlayerController : MonoBehaviour
         
         if (collision.collider.CompareTag("Obstacle")) // raises event upon collision
         {
+            if (UIManager.instance.plushReserve - collisionCost > 0)
+            {
+                UIManager.instance.plushReserve -= collisionCost;
+            }
+            else
+            {
+                UIManager.instance.plushReserve = 0;
+            }
+            
             heartLost?.Invoke();
 
         }
@@ -87,13 +101,21 @@ public class PlayerController : MonoBehaviour
 
     public void Crouch() // scale player on y to half the height
     {
-        Vector3 scale = transform.localScale;
-        scale.y = crouchHeight;
+        if (UIManager.instance.plushReserve - crouchCost * Time.deltaTime >= 0)
+        {
+            Vector3 scale = transform.localScale;
+            scale.y = crouchHeight;
 
-        transform.localScale = scale;
+            transform.localScale = scale;
 
-        playerCd.size = scalePlayerCd;
+            playerCd.size = scalePlayerCd;
 
+            UIManager.instance.plushReserve -= crouchCost * Time.deltaTime;
+        }
+        else 
+        { 
+            return; 
+        }
     }
 
     private void Shoot(Vector2 direction) // instantiates projectile with given speed and direction of flight
@@ -104,6 +126,8 @@ public class PlayerController : MonoBehaviour
 
         projectile.GetComponent<Rigidbody2D>().velocity = projectileSpeed * direction;
 
+        UIManager.instance.plushReserve -= shootCost;
+       
     }
 
 }

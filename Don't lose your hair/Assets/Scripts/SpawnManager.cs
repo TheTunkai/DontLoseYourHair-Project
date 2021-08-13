@@ -10,7 +10,7 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private Vector2 spawnPosCrouch = new Vector2(20f, 0.8f);
     [SerializeField] private Vector2 spawnPosFlyingEnemy = new Vector2(19f, 3f);
     [SerializeField] private float obstacleSpawnRate = 3f;
-    [SerializeField] private float enemySpawnRate = 4f;
+    [SerializeField] private float enemySpawnRate = 5f;
 
     [SerializeField] private bool enemySpawnStarted = false;
 

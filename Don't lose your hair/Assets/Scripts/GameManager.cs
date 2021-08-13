@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public GameObject gameOverMenu;
     public Text scoreText;
     public Text endScoreText;
+    public Text heartsText;
 
     public int playerHearts = 3;
     public int enemyCount = 0;
@@ -135,6 +136,7 @@ public class GameManager : MonoBehaviour
     void DecreasePlayerHearts(int value) // decreases player hearts
     {
         playerHearts -= value;
+        heartsText.text = "Hearts: " + playerHearts;
     }
 
     public void PauseGame() // pauses game by setting time scale to zero

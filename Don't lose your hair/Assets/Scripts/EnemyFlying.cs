@@ -7,8 +7,8 @@ public class EnemyFlying : Enemy
     #region Variables
     [SerializeField] private int suckInterval = 4;
     [SerializeField] private Vector2 endPosition = new Vector2(-9f, 3f);
+    [SerializeField] private float suckSpeed = 0.3f;
     
-    [SerializeField] private bool suckingStarted = false;
     #endregion
 
 
@@ -24,17 +24,28 @@ public class EnemyFlying : Enemy
     {
         Move();
 
-        if (transform.position.x <= endPosition.x && !suckingStarted)
+        if (transform.position.x <= endPosition.x)
         {
-            suckingStarted = true;
-            StartCoroutine(SuckHair());
+            
+
+            if (!GameManager.instance.gameOver && UIManager.instance.plushReserve >= 0)
+            {
+                SuckHair();
+            }
+            else if (!GameManager.instance.gameOver)
+            {
+                StartCoroutine(DecreasePlayerHearts());
+            }
+            
         }
 
         if (hearts <= 0)
         {
             Die();
         }
+
         
+
     }
 
     public override void Move() // extends base method move 
@@ -52,9 +63,14 @@ public class EnemyFlying : Enemy
         Destroy(gameObject);
     }
 
-    IEnumerator SuckHair() // starts sucking enemy life (hearts, later hair) with given interval
+    void SuckHair()
     {
-        while (GameManager.instance.playerHearts > 0)
+        UIManager.instance.plushReserve -= suckSpeed * Time.deltaTime;
+    }
+
+    IEnumerator DecreasePlayerHearts() // starts sucking player life (hearts, later hair) with given interval
+    {
+        while (!GameManager.instance.gameOver && UIManager.instance.plushReserve <= 0)
         {
 
             yield return new WaitForSeconds(suckInterval);
