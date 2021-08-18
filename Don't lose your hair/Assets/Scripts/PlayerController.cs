@@ -10,7 +10,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpForce = 15f;
     [SerializeField] private float verticalInput = 0;
     [SerializeField] private float crouchHeight = 0.5f;
-    [SerializeField] private Vector2 scalePlayerCd = new Vector2(1f, 0.5f);
+    [SerializeField] private Vector2 normalCdSize = new Vector2(1.8f, 1.9f);
+    [SerializeField] private Vector2 sizePlayerCdCrouch = new Vector2(1.8f, 0.5f);
     [SerializeField] private Vector3 target;
     [SerializeField] private float projectileSpeed = 20f;
     [SerializeField] private float jumpCost = 0.1f;
@@ -23,6 +24,7 @@ public class PlayerController : MonoBehaviour
     public GameObject projectilePrefab;
     private Rigidbody2D playerRb;
     private BoxCollider2D playerCd;
+    public Animator playerAnimator;
     #endregion
 
     #region Events
@@ -49,6 +51,7 @@ public class PlayerController : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Space) && isOnGround && UIManager.instance.plushReserve - jumpCost >= 0) // make player jump if he is on the ground
             {
+                playerAnimator.SetBool("is_jumping_b", true);
                 playerRb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
                 UIManager.instance.plushReserve -= jumpCost;
                 isOnGround = false;
@@ -60,8 +63,9 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                transform.localScale = Vector3.one;
-                playerCd.size = Vector2.one;
+                playerAnimator.SetBool("is_crouching_b", false);
+                playerCd.size = normalCdSize;
+                
             }
 
             if (Input.GetButtonDown("Fire1") && UIManager.instance.plushReserve - shootCost >= 0)
@@ -80,6 +84,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.collider.CompareTag("Floor"))
         {
+            playerAnimator.SetBool("is_jumping_b", false);
             isOnGround = true;
         }
         
@@ -103,12 +108,9 @@ public class PlayerController : MonoBehaviour
     {
         if (UIManager.instance.plushReserve - crouchCost * Time.deltaTime >= 0)
         {
-            Vector3 scale = transform.localScale;
-            scale.y = crouchHeight;
+            playerAnimator.SetBool("is_crouching_b", true);
 
-            transform.localScale = scale;
-
-            playerCd.size = scalePlayerCd;
+            playerCd.size = sizePlayerCdCrouch;
 
             UIManager.instance.plushReserve -= crouchCost * Time.deltaTime;
         }

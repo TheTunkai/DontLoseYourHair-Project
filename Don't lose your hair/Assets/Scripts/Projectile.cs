@@ -8,10 +8,15 @@ public class Projectile : MonoBehaviour
     [SerializeField] private float lifeTime = 3f;
     [SerializeField] private float xBoundary = 20f;
     [SerializeField] private float lowerBoundary = -6f;
+    [SerializeField] private float rotationSpeed = 10f;
+    [SerializeField] private Vector3 rotationVector = new Vector3(0, 0, 1f);
+
     #endregion
 
     private void Start()
     {
+        
+
         StartCoroutine(Disappear());
     }
 
@@ -21,6 +26,8 @@ public class Projectile : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        this.gameObject.transform.Rotate( rotationVector* rotationSpeed * Time.deltaTime);
     }
 
     private void OnTriggerEnter2D(Collider2D collision) // do something when colliding
