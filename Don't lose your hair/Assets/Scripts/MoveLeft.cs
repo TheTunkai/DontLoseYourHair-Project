@@ -8,6 +8,8 @@ public class MoveLeft : MonoBehaviour
     #region Variables
     [SerializeField] private float speed = 20f;
     [SerializeField] private float leftBoundary = -21f;
+    [SerializeField] private Vector2 startPosBackground = new Vector2(0f, 0f);
+    [SerializeField] private Vector3 endPosBackground = new Vector3(-32f, 0f, -1f);
     #endregion
 
 
@@ -20,9 +22,14 @@ public class MoveLeft : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (transform.position.x < leftBoundary) // destroy gameobject, if out of bounds
+        if (transform.position.x < leftBoundary && gameObject.CompareTag("Obstacle")) // destroy gameobject, if out of bounds
         {
             Destroy(gameObject);
+        }
+
+        if (transform.position.x <= endPosBackground.x && gameObject.CompareTag("Background"))
+        {
+            transform.position = startPosBackground;
         }
 
         transform.Translate(Vector2.left * speed * Time.deltaTime); // moves object to the left with assigned speed

@@ -9,7 +9,6 @@ public class PlayerController : MonoBehaviour
     #region Variables
     [SerializeField] private float jumpForce = 15f;
     [SerializeField] private float verticalInput = 0;
-    [SerializeField] private float crouchHeight = 0.5f;
     [SerializeField] private Vector2 normalCdSize = new Vector2(1.8f, 1.9f);
     [SerializeField] private Vector2 sizePlayerCdCrouch = new Vector2(1.8f, 0.5f);
     [SerializeField] private Vector3 target;

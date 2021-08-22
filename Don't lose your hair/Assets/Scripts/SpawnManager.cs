@@ -8,6 +8,7 @@ public class SpawnManager : MonoBehaviour
     #region Variables
     [SerializeField] private Vector2 spawnPosJump = new Vector2(20f, -2f);
     [SerializeField] private Vector2 spawnPosCrouch = new Vector2(20f, 0.8f);
+    [SerializeField] private Vector2 spawnPosShoot = new Vector2(20f, 0.55f);
     [SerializeField] private Vector2 spawnPosFlyingEnemy = new Vector2(19f, 3f);
     [SerializeField] private float obstacleSpawnRate = 3f;
     [SerializeField] private float enemySpawnRate = 5f;
@@ -46,9 +47,13 @@ public class SpawnManager : MonoBehaviour
 
         int index = UnityEngine.Random.Range(0, obstaclePrefabs.Length);
 
-        if (obstaclePrefabs[index].name == "Obstacle_Jump" || obstaclePrefabs[index].name == "Obstacle_Shoot")
+        if (obstaclePrefabs[index].name == "Obstacle_Jump")
         {
             spawnPos = spawnPosJump;
+        }
+        else if(obstaclePrefabs[index].name == "Obstacle_Shoot")
+        {
+            spawnPos = spawnPosShoot;
         }
         else if (obstaclePrefabs[index].name == "Obstacle_Crouch")
         {
