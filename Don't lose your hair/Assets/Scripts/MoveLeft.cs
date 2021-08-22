@@ -8,7 +8,7 @@ public class MoveLeft : MonoBehaviour
     #region Variables
     [SerializeField] private float speed = 20f;
     [SerializeField] private float leftBoundary = -21f;
-    [SerializeField] private Vector2 startPosBackground = new Vector2(0f, 0f);
+    [SerializeField] private Vector3 startPosBackground = new Vector3(0f, 0f, 0f);
     [SerializeField] private Vector3 endPosBackground = new Vector3(-32f, 0f, -1f);
     #endregion
 

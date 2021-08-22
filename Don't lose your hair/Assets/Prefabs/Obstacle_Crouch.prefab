@@ -144,7 +144,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b76edb8a8a344be40b8f569306570ada, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 18
+  speed: 20
   leftBoundary: -21
-  startPosBackground: {x: 0, y: 0}
+  startPosBackground: {x: 0, y: 0, z: 0}
   endPosBackground: {x: -32, y: 0, z: -1}
