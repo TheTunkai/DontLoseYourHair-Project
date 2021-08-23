@@ -76,6 +76,11 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        if (GameManager.instance.gameOver)
+        {
+            playerAnimator.enabled = false;
+        }
+
     }
 
 

@@ -10,7 +10,24 @@ public class PauseManager : MonoBehaviour
     #region Variables
     public Canvas optionsMenu;
     public Canvas mainPauseMenu;
+    public Slider volumeSlider;
+    public AudioSource bgMusic;
     #endregion
+
+    private void Start()
+    {
+        volumeSlider.value = 1;
+    }
+
+    private void Update()
+    {
+        if (GameManager.instance.gameIsPaused)
+        {
+            bgMusic.volume = volumeSlider.value;
+        }
+
+    }
+
 
     public void BackToMenu() // loads main menu scene
     {

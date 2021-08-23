@@ -41,7 +41,7 @@ public class UIManager : MonoBehaviour
     {
         plushBar.value = plushReserve;
 
-        if (plushReserve < 1)
+        if (plushReserve < 2)
         {
             plushReserve += plushRefillRate * Time.deltaTime;
         }

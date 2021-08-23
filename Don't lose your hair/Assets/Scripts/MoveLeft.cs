@@ -22,18 +22,21 @@ public class MoveLeft : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (transform.position.x < leftBoundary && gameObject.CompareTag("Obstacle")) // destroy gameobject, if out of bounds
+        if (!GameManager.instance.gameOver)
         {
-            Destroy(gameObject);
+
+            if (transform.position.x < leftBoundary && gameObject.CompareTag("Obstacle")) // destroy gameobject, if out of bounds
+            {
+                Destroy(gameObject);
+            }
+
+            if (transform.position.x <= endPosBackground.x && gameObject.CompareTag("Background"))
+            {
+                transform.position = startPosBackground;
+            }
+
+            transform.Translate(Vector2.left * speed * Time.deltaTime); // moves object to the left with assigned speed
         }
-
-        if (transform.position.x <= endPosBackground.x && gameObject.CompareTag("Background"))
-        {
-            transform.position = startPosBackground;
-        }
-
-        transform.Translate(Vector2.left * speed * Time.deltaTime); // moves object to the left with assigned speed
-
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
