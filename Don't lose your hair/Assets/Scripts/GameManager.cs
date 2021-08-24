@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
 
     public bool gameOver = false;
     public bool gameIsPaused = false;
+    public bool gameOverCalled = false;
 
     public event Action playerLost;
     public event Action startEnemyWave;
@@ -113,8 +114,10 @@ public class GameManager : MonoBehaviour
             gameOver = true;
         }
 
-        if (gameOver)
+        if (gameOver && !gameOverCalled)
         {
+            AudioManager.instance.PlayMusic("game_over");
+            gameOverCalled = true;
             gameOverMenu.SetActive(true);
             endScoreText.text = "Your Score: " + playerScore;
             playerLost?.Invoke();

@@ -41,6 +41,7 @@ public class Projectile : MonoBehaviour
 
         if (collision.CompareTag("Obstacle") && collision.name.Contains("Obstacle_Shoot"))
         {
+            AudioManager.instance.PlaySound(2);
             Destroy(collision.gameObject);
             Destroy(gameObject);
         }

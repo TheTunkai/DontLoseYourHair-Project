@@ -51,6 +51,7 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space) && isOnGround && UIManager.instance.plushReserve - jumpCost >= 0) // make player jump if he is on the ground
             {
                 playerAnimator.SetBool("is_jumping_b", true);
+                AudioManager.instance.PlaySound(0);
                 playerRb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
                 UIManager.instance.plushReserve -= jumpCost;
                 isOnGround = false;
@@ -96,10 +97,12 @@ public class PlayerController : MonoBehaviour
         {
             if (UIManager.instance.plushReserve - collisionCost > 0)
             {
+                AudioManager.instance.PlaySound(1);
                 UIManager.instance.plushReserve -= collisionCost;
             }
             else
             {
+                AudioManager.instance.PlaySound(1);
                 UIManager.instance.plushReserve = 0;
             }
             
