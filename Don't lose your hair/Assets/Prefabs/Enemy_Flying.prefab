@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3062057832410573624}
   - component: {fileID: 4618496635294714834}
   - component: {fileID: 8246363411643403920}
+  - component: {fileID: 475256213479276073}
   m_Layer: 6
   m_Name: Enemy_Flying
   m_TagString: Enemy
@@ -28,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6361735444179419497}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.4751692, y: -0.019103467, z: 0}
+  m_LocalPosition: {x: -4.5, y: 1.18, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -119,9 +120,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.24232101, y: -0.3710538}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.8104739
 --- !u!114 &8246363411643403920
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -140,3 +141,23 @@ MonoBehaviour:
   suckInterval: 3
   endPosition: {x: -9, y: 3}
   suckSpeed: 0.2
+  enemyAnimator: {fileID: 475256213479276073}
+--- !u!95 &475256213479276073
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6361735444179419497}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ccf57ec4799c033408388e51aefaa70e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

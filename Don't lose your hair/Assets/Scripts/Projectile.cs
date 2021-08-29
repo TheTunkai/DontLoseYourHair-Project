@@ -34,6 +34,7 @@ public class Projectile : MonoBehaviour
     {
         if (collision.CompareTag("Enemy"))
         {
+            AudioManager.instance.PlaySound(3, 1f);
             Enemy enemy = collision.GetComponent<Enemy>();
             enemy.hearts--;
             Destroy(gameObject);
@@ -41,7 +42,7 @@ public class Projectile : MonoBehaviour
 
         if (collision.CompareTag("Obstacle") && collision.name.Contains("Obstacle_Shoot"))
         {
-            AudioManager.instance.PlaySound(2);
+            AudioManager.instance.PlaySound(2, 1f);
             Destroy(collision.gameObject);
             Destroy(gameObject);
         }

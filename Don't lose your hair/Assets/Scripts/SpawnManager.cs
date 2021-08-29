@@ -24,12 +24,12 @@ public class SpawnManager : MonoBehaviour
     void Start()
     {
         GameManager.instance.startEnemyWave += startEnemySpawning;
-        GameManager.instance.playerLost += Instance_playerLost;
+        GameManager.instance.playerLost += OnPlayerDie;
       
         StartCoroutine(SpawningObstacles());
     }
 
-    private void Instance_playerLost() // stops coroutines when player lost
+    private void OnPlayerDie() // stops coroutines when player lost
     {
         StopAllCoroutines();
     }

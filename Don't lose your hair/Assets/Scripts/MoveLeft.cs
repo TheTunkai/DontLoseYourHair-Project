@@ -10,6 +10,8 @@ public class MoveLeft : MonoBehaviour
     [SerializeField] private float leftBoundary = -21f;
     [SerializeField] private Vector3 startPosBackground = new Vector3(0f, 0f, 0f);
     [SerializeField] private Vector3 endPosBackground = new Vector3(-32f, 0f, -1f);
+    [SerializeField] private Vector3 startPosFloor = new Vector3(-0.73f, -2.35f, -1f);
+    [SerializeField] private Vector3 endPosFloor = new Vector3(-35.42f, -2.35f, -1f);
     #endregion
 
 
@@ -33,6 +35,11 @@ public class MoveLeft : MonoBehaviour
             if (transform.position.x <= endPosBackground.x && gameObject.CompareTag("Background"))
             {
                 transform.position = startPosBackground;
+            }
+
+            if (transform.position.x <= endPosFloor.x && gameObject.CompareTag("Floor"))
+            {
+                transform.position = startPosFloor;
             }
 
             transform.Translate(Vector2.left * speed * Time.deltaTime); // moves object to the left with assigned speed

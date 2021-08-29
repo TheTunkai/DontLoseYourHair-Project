@@ -6,7 +6,7 @@ using System;
 public class Enemy : MonoBehaviour
 {
     #region Variables
-    public float hearts = 2;
+    public float hearts = 1;
    [SerializeField] protected float speed = 22f;
    [SerializeField] protected float leftBoundary = -21f;
 
@@ -19,10 +19,11 @@ public class Enemy : MonoBehaviour
         player = FindObjectOfType<PlayerController>();
 
     }
-
+    
     // Update is called once per frame
     void Update()
     {
+        
 
         
     }

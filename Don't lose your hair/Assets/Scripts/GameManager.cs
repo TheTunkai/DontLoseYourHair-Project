@@ -109,7 +109,7 @@ public class GameManager : MonoBehaviour
         }
 
 
-        if (playerHearts == 0)
+        if (playerHearts <= 0)
         {
             gameOver = true;
         }

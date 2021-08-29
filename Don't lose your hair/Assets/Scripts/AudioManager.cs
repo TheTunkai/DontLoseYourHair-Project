@@ -28,32 +28,34 @@ public class AudioManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
+        
         }
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        GameManager.instance.playerLost += Instance_playerLost;
+        GameManager.instance.playerLost += OnPlayerDie;
 
         bgMusic.volume = defaultVolume;
     }
 
 
-    private void Instance_playerLost()
+    private void OnPlayerDie()
     {
         
         bgMusic.volume = 0;
        
     }
 
-    public void PlaySound(int soundID)
+    public void PlaySound(int soundID, float volume)
     {
-        soundEffectsPlayer.volume = bgMusic.volume;
+        soundEffectsPlayer.volume = volume;
         soundEffectsPlayer.PlayOneShot(soundClips[soundID]);
 
     }
 
+    
     public void PlayMusic(string condition)
     {
         if (condition == "game_over")

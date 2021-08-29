@@ -8,6 +8,7 @@ public class EnemyFlying : Enemy
     [SerializeField] private int suckInterval = 4;
     [SerializeField] private Vector2 endPosition = new Vector2(-9f, 3f);
     [SerializeField] private float suckSpeed = 0.3f;
+    public Animator enemyAnimator;
     
     #endregion
 
@@ -26,7 +27,7 @@ public class EnemyFlying : Enemy
 
         if (transform.position.x <= endPosition.x)
         {
-            
+            enemyAnimator.SetBool("at_final_position", true);
 
             if (!GameManager.instance.gameOver && UIManager.instance.plushReserve >= 0)
             {
