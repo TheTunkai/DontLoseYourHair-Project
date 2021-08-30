@@ -1,14 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class EnemyFlying : Enemy
 {
     #region Variables
     [SerializeField] private int suckInterval = 4;
-    [SerializeField] private Vector2 endPosition = new Vector2(-9f, 3f);
+    [SerializeField] private Vector2 endPosition = new Vector2(-8f, 3f);
     [SerializeField] private float suckSpeed = 0.3f;
+
+    [SerializeField] private bool suckingStarted = false;
     public Animator enemyAnimator;
+
+    
     
     #endregion
 
@@ -27,7 +32,15 @@ public class EnemyFlying : Enemy
 
         if (transform.position.x <= endPosition.x)
         {
-            enemyAnimator.SetBool("at_final_position", true);
+            
+
+            if(!suckingStarted)
+            {
+                enemyAnimator.SetBool("at_final_position", true);
+                AudioManager.instance.PlaySound(3, 1f, true);
+                suckingStarted = true;
+            }
+            
 
             if (!GameManager.instance.gameOver && UIManager.instance.plushReserve >= 0)
             {
@@ -61,6 +74,8 @@ public class EnemyFlying : Enemy
 
     void Die()
     {
+        AudioManager.instance.PlaySound(5, 1f, false);
+        AudioManager.instance.StopSoundLoop();
         Destroy(gameObject);
     }
 

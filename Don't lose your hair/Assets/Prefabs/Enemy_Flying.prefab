@@ -139,8 +139,9 @@ MonoBehaviour:
   speed: 22
   leftBoundary: -21
   suckInterval: 3
-  endPosition: {x: -9, y: 3}
+  endPosition: {x: -7, y: 3}
   suckSpeed: 0.2
+  suckingStarted: 0
   enemyAnimator: {fileID: 475256213479276073}
 --- !u!95 &475256213479276073
 Animator:

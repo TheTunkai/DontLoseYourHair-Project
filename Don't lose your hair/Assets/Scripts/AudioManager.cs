@@ -6,7 +6,7 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour
 {
     #region Variables
-    [SerializeField] private float defaultVolume = 1f;
+    [SerializeField] private float defaultVolume = 0.8f;
 
     public AudioClip[] soundClips;
     public AudioClip gameOverMusic;
@@ -14,6 +14,7 @@ public class AudioManager : MonoBehaviour
 
     public AudioSource bgMusic;
     public AudioSource soundEffectsPlayer;
+    public AudioSource soundEffectsPlayerLoop;
     public AudioSource musicPlayer;
     public static AudioManager instance = null;
     #endregion
@@ -48,10 +49,22 @@ public class AudioManager : MonoBehaviour
        
     }
 
-    public void PlaySound(int soundID, float volume)
+    public void PlaySound(int soundID, float volume, bool doLoop)
     {
         soundEffectsPlayer.volume = volume;
+        soundEffectsPlayerLoop.volume = volume;
+        AudioClip audioClip = soundClips[soundID];
+
+        if (doLoop)
+        {
+            soundEffectsPlayerLoop.loop = true;
+            soundEffectsPlayerLoop.clip = audioClip;
+            soundEffectsPlayerLoop.Play();
+        }
+        else
+        {
         soundEffectsPlayer.PlayOneShot(soundClips[soundID]);
+        }
 
     }
 
@@ -66,5 +79,11 @@ public class AudioManager : MonoBehaviour
         {
             return;
         }
+    }
+
+    public void StopSoundLoop()
+    {
+        soundEffectsPlayerLoop.clip = null;
+        soundEffectsPlayerLoop.Stop();
     }
 }
