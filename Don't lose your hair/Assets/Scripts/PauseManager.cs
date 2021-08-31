@@ -21,7 +21,7 @@ public class PauseManager : MonoBehaviour
 
     private void Update()
     {
-        if (GameManager.instance.gameIsPaused)
+        if (GameManager.instance.gameIsPaused) // in pause volume slider changes music volume
         {
             bgMusic.volume = volumeSlider.value;
         }

@@ -34,7 +34,7 @@ public class EnemyFlying : Enemy
         {
             
 
-            if(!suckingStarted)
+            if(!suckingStarted) // when flying enemy starts sucking for first time, it starts playing the sucking sound and changes its animation
             {
                 enemyAnimator.SetBool("at_final_position", true);
                 AudioManager.instance.PlaySound(3, 1f, true);
@@ -42,11 +42,11 @@ public class EnemyFlying : Enemy
             }
             
 
-            if (!GameManager.instance.gameOver && UIManager.instance.plushReserve >= 0)
+            if (!GameManager.instance.gameOver && UIManager.instance.plushReserve >= 0) // when player has plush left and the game is not over, the enemy sucks its hair
             {
                 SuckHair();
             }
-            else if (!GameManager.instance.gameOver)
+            else if (!GameManager.instance.gameOver)    // if the player has no plush left, his hearts will decrease
             {
                 StartCoroutine(DecreasePlayerHearts());
             }
@@ -64,7 +64,7 @@ public class EnemyFlying : Enemy
 
     public override void Move() // extends base method move 
     {
-        if (transform.position.x <= endPosition.x)
+        if (transform.position.x <= endPosition.x) // movement stops at end position
         {
             this.speed = 0;
         }
@@ -72,19 +72,19 @@ public class EnemyFlying : Enemy
         base.Move();
     }
 
-    void Die()
+    void Die() // game object is destroyed and sounds are stopped
     {
         AudioManager.instance.PlaySound(5, 1f, false);
         AudioManager.instance.StopSoundLoop();
         Destroy(gameObject);
     }
 
-    void SuckHair()
+    void SuckHair() // decreases players plush reserve over time
     {
         UIManager.instance.plushReserve -= suckSpeed * Time.deltaTime;
     }
 
-    IEnumerator DecreasePlayerHearts() // starts sucking player life (hearts, later hair) with given interval
+    IEnumerator DecreasePlayerHearts() // decreases players hearts with given interval
     {
         while (!GameManager.instance.gameOver && UIManager.instance.plushReserve <= 0)
         {

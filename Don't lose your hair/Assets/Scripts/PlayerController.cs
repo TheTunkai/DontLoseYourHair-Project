@@ -48,7 +48,7 @@ public class PlayerController : MonoBehaviour
 
             Vector3 difference = target - transform.position;
 
-            if (Input.GetKeyDown(KeyCode.Space) && isOnGround && UIManager.instance.plushReserve - jumpCost >= 0) // make player jump if he is on the ground
+            if (Input.GetKeyDown(KeyCode.Space) && isOnGround && UIManager.instance.plushReserve - jumpCost >= 0) // make player jump if he is on the ground and play sound
             {
                 playerAnimator.SetBool("is_jumping_b", true);
                 AudioManager.instance.PlaySound(0, 0.8f, false);
@@ -68,7 +68,7 @@ public class PlayerController : MonoBehaviour
                 
             }
 
-            if (Input.GetButtonDown("Fire1") && UIManager.instance.plushReserve - shootCost >= 0)
+            if (Input.GetButtonDown("Fire1") && UIManager.instance.plushReserve - shootCost >= 0) // player shoots as long as enough plush is in reserve
             {
                 float distance = difference.magnitude;
                 Vector2 direction = difference / distance;
@@ -77,7 +77,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (GameManager.instance.gameOver)
+        if (GameManager.instance.gameOver) // disables animator when game is over
         {
             playerAnimator.enabled = false;
         }
@@ -93,7 +93,7 @@ public class PlayerController : MonoBehaviour
             isOnGround = true;
         }
         
-        if (collision.collider.CompareTag("Obstacle")) // raises event upon collision
+        if (collision.collider.CompareTag("Obstacle")) // raises event upon collision and plays sound
         {
             if (UIManager.instance.plushReserve - collisionCost > 0)
             {
@@ -111,7 +111,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void Crouch() // scale player on y to half the height
+    public void Crouch() // scale player on y to half the height and substract cost from plush reserve
     {
         if (UIManager.instance.plushReserve - crouchCost * Time.deltaTime >= 0)
         {
@@ -127,7 +127,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void Shoot(Vector2 direction) // instantiates projectile with given speed and direction of flight
+    private void Shoot(Vector2 direction) // instantiates projectile with given speed and direction of flight and plays shoot sound
     {
         AudioManager.instance.PlaySound(6, 1f, false);
         

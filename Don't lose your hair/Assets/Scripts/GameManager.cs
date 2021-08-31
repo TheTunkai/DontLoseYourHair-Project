@@ -56,7 +56,7 @@ public class GameManager : MonoBehaviour
 
         playerScript = FindObjectOfType<PlayerController>();
 
-        playerScript.heartLost += PlayerScript_heartLost;
+        playerScript.heartLost += OnPlayerHeartLost;
 
         if (pauseMenu == null)
         {
@@ -69,7 +69,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void PlayerScript_heartLost() // decreases player hearts when the subscribed event is raised
+    private void OnPlayerHeartLost() // decreases player hearts when the subscribed event is raised
     {
         DecreasePlayerHearts(1);
     }
@@ -78,9 +78,9 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!gameOver)
+        if (!gameOver) // only does the code as long as game isn't over
         {
-            if (playerScore == 10 && enemyCount == 0)
+            if (playerScore > 0 && playerScore % 10 == 0 && enemyCount == 0) // condition for enemy wave
             {
                 startEnemyWave?.Invoke();
             }
@@ -93,7 +93,7 @@ public class GameManager : MonoBehaviour
                 timePoints = 0;
             }
 
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.Escape)) // esc is declared as pause button
             {
                 gameIsPaused = !gameIsPaused;
 
@@ -114,7 +114,7 @@ public class GameManager : MonoBehaviour
             gameOver = true;
         }
 
-        if (gameOver && !gameOverCalled)
+        if (gameOver && !gameOverCalled) // invokes game over, only once!
         {
             AudioManager.instance.PlayMusic("game_over");
             gameOverCalled = true;

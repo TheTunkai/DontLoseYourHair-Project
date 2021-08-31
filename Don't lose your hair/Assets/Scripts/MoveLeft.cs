@@ -32,12 +32,12 @@ public class MoveLeft : MonoBehaviour
                 Destroy(gameObject);
             }
 
-            if (transform.position.x <= endPosBackground.x && gameObject.CompareTag("Background"))
+            if (transform.position.x <= endPosBackground.x && gameObject.CompareTag("Background")) // moves background
             {
                 transform.position = startPosBackground;
             }
 
-            if (transform.position.x <= endPosFloor.x && gameObject.CompareTag("Floor"))
+            if (transform.position.x <= endPosFloor.x && gameObject.CompareTag("Floor")) // moves floor
             {
                 transform.position = startPosFloor;
             }

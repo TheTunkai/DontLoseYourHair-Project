@@ -16,7 +16,7 @@ public class UIManager : MonoBehaviour
 
     private void Awake() 
     {
-        if (instance != null) // make singleton
+        if (instance != null) // make singleton pattern
         {
             Destroy(gameObject);
         }

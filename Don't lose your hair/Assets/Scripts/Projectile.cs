@@ -30,23 +30,23 @@ public class Projectile : MonoBehaviour
         this.gameObject.transform.Rotate( rotationVector* rotationSpeed * Time.deltaTime);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision) // do something when colliding
+    private void OnTriggerEnter2D(Collider2D collision) // do something when colliding; collision always destroys the projectile
     {
-        if (collision.CompareTag("Enemy"))
+        if (collision.CompareTag("Enemy")) // collision with enemy kills decreases its hearts and plays sound
         {
-            AudioManager.instance.PlaySound(4, 1f, false);
+            AudioManager.instance.PlaySound(4, 0.8f, false);
             Enemy enemy = collision.GetComponent<Enemy>();
             enemy.hearts--;
             Destroy(gameObject);
         }
 
-        if (collision.CompareTag("Obstacle") && collision.name.Contains("Obstacle_Shoot"))
+        if (collision.CompareTag("Obstacle") && collision.name.Contains("Obstacle_Shoot")) // when breakable wall is hit, it is destroyed and a sound is played
         {
-            AudioManager.instance.PlaySound(2, 1f, false);
+            AudioManager.instance.PlaySound(2, 0.8f, false);
             Destroy(collision.gameObject);
             Destroy(gameObject);
         }
-        else if (collision.CompareTag("Obstacle"))
+        else if (collision.CompareTag("Obstacle")) // any othe obstacle isn't affected
         {
             Destroy(gameObject);
         }

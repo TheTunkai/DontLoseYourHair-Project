@@ -22,6 +22,7 @@ public class AudioManager : MonoBehaviour
 
     private void Awake()
     {
+        // implementing singleton pattern
         if(instance == null)
         {
             instance = this;
@@ -35,33 +36,33 @@ public class AudioManager : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {
+    {   // subscribe to player event
         GameManager.instance.playerLost += OnPlayerDie;
-
+        // set background music volume to default value
         bgMusic.volume = defaultVolume;
     }
 
 
     private void OnPlayerDie()
     {
-        
+        // turns off music, when player loses
         bgMusic.volume = 0;
        
     }
 
-    public void PlaySound(int soundID, float volume, bool doLoop)
+    public void PlaySound(int soundID, float volume, bool doLoop) // plays sound clip with given ID and volume,
     {
         soundEffectsPlayer.volume = volume;
         soundEffectsPlayerLoop.volume = volume;
         AudioClip audioClip = soundClips[soundID];
 
-        if (doLoop)
+        if (doLoop) // loops sound, when looping is wished
         {
             soundEffectsPlayerLoop.loop = true;
             soundEffectsPlayerLoop.clip = audioClip;
             soundEffectsPlayerLoop.Play();
         }
-        else
+        else // plays sound clip one time
         {
         soundEffectsPlayer.PlayOneShot(soundClips[soundID]);
         }
@@ -69,7 +70,7 @@ public class AudioManager : MonoBehaviour
     }
 
     
-    public void PlayMusic(string condition)
+    public void PlayMusic(string condition) // plays specific music, when an in-game condition is met
     {
         if (condition == "game_over")
         {
@@ -81,7 +82,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void StopSoundLoop()
+    public void StopSoundLoop() // stops sound loops played by soundEffectsPlayerLoop
     {
         soundEffectsPlayerLoop.clip = null;
         soundEffectsPlayerLoop.Stop();

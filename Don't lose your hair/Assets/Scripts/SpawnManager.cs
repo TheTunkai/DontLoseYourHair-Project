@@ -12,6 +12,7 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private Vector2 spawnPosFlyingEnemy = new Vector2(19f, 3f);
     [SerializeField] private float obstacleSpawnRate = 3f;
     [SerializeField] private float enemySpawnRate = 5f;
+    [SerializeField] private int enemyWaveTracker = 1;
 
     [SerializeField] private bool enemySpawnStarted = false;
 
@@ -23,7 +24,7 @@ public class SpawnManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameManager.instance.startEnemyWave += startEnemySpawning;
+        GameManager.instance.startEnemyWave += OnEnemySpawnSignal;
         GameManager.instance.playerLost += OnPlayerDie;
       
         StartCoroutine(SpawningObstacles());
@@ -81,22 +82,27 @@ public class SpawnManager : MonoBehaviour
 
     }
 
-    private void startEnemySpawning() // is called, when condition for enemies is met
+    private void OnEnemySpawnSignal() // is called, when condition for enemies is met
     {
         if (!enemySpawnStarted)
         {
-            StartCoroutine(SpawningEnemies());
+            enemySpawnStarted = true;
+            StartCoroutine(SpawningEnemies(enemyWaveTracker));
         }
     }
 
-    IEnumerator SpawningEnemies() // starts enemy spawning with given rate and number of enemies
+    IEnumerator SpawningEnemies(int waveNumber) // starts enemy spawning with given rate and number of enemies
     {
-        while(GameManager.instance.enemyCount < 8)
+        
+        int enemiesToSpawn = waveNumber * 2;
+
+        while(GameManager.instance.enemyCount < enemiesToSpawn)
         {
             SpawnEnemy();
             yield return new WaitForSeconds(enemySpawnRate);
         }
-
+        enemySpawnStarted = false;
+        enemyWaveTracker += 1;
         GameManager.instance.enemyCount = 0;
 
     }
