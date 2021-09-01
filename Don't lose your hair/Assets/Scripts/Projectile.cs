@@ -34,7 +34,7 @@ public class Projectile : MonoBehaviour
     {
         if (collision.CompareTag("Enemy")) // collision with enemy kills decreases its hearts and plays sound
         {
-            AudioManager.instance.PlaySound(4, 0.8f, false);
+            AudioManager.instance.PlaySound(4, 0.6f, false);
             Enemy enemy = collision.GetComponent<Enemy>();
             enemy.hearts--;
             Destroy(gameObject);
@@ -42,7 +42,7 @@ public class Projectile : MonoBehaviour
 
         if (collision.CompareTag("Obstacle") && collision.name.Contains("Obstacle_Shoot")) // when breakable wall is hit, it is destroyed and a sound is played
         {
-            AudioManager.instance.PlaySound(2, 0.8f, false);
+            AudioManager.instance.PlaySound(2, 0.6f, false);
             Destroy(collision.gameObject);
             Destroy(gameObject);
         }

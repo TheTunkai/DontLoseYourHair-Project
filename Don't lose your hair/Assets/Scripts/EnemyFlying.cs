@@ -22,6 +22,8 @@ public class EnemyFlying : Enemy
     // Start is called before the first frame update
     void Start()
     {
+        GameManager.instance.playerLost += OnGameOver;
+        GameManager.instance.gamePaused += OnPause;
         
     }
 
@@ -82,6 +84,22 @@ public class EnemyFlying : Enemy
     void SuckHair() // decreases players plush reserve over time
     {
         UIManager.instance.plushReserve -= suckSpeed * Time.deltaTime;
+    }
+
+    void OnGameOver()
+    {
+        AudioManager.instance.StopSoundLoop();
+    }
+
+    void OnPause()
+    {
+        if (suckingStarted)
+        {
+            suckingStarted = false;
+        }
+        
+        AudioManager.instance.StopSoundLoop();
+
     }
 
     IEnumerator DecreasePlayerHearts() // decreases players hearts with given interval

@@ -38,6 +38,8 @@ public class AudioManager : MonoBehaviour
     void Start()
     {   // subscribe to player event
         GameManager.instance.playerLost += OnPlayerDie;
+        GameManager.instance.gamePaused += PauseMusic;
+        GameManager.instance.gameResumed += UnpauseMusic;
         // set background music volume to default value
         bgMusic.volume = defaultVolume;
     }
@@ -80,6 +82,17 @@ public class AudioManager : MonoBehaviour
         {
             return;
         }
+    }
+
+    void PauseMusic()
+    {
+        bgMusic.Pause();
+
+    }
+
+    void UnpauseMusic()
+    {
+        bgMusic.Play();
     }
 
     public void StopSoundLoop() // stops sound loops played by soundEffectsPlayerLoop

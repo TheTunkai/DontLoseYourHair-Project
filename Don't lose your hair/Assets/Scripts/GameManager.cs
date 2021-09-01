@@ -30,6 +30,9 @@ public class GameManager : MonoBehaviour
 
     public event Action playerLost;
     public event Action startEnemyWave;
+
+    public event Action gamePaused;
+    public event Action gameResumed;
     #endregion
 
     // Start is called before the first frame update
@@ -146,6 +149,7 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0;
         pauseMenu.SetActive(true);
+        gamePaused?.Invoke();
     }
 
     public void ResumeGame() // sets time scale to 1 and thus unpauses game
@@ -153,6 +157,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
         gameIsPaused = false;
         pauseMenu.SetActive(false);
+        gameResumed?.Invoke();
     }
 
     public void RestartGame() // loads game scene

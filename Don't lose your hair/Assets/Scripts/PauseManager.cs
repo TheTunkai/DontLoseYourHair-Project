@@ -8,15 +8,18 @@ using UnityEngine.SceneManagement;
 public class PauseManager : MonoBehaviour
 {
     #region Variables
+    [SerializeField] private float defaultVolume = 0.8f;
     public Canvas optionsMenu;
     public Canvas mainPauseMenu;
     public Slider volumeSlider;
     public AudioSource bgMusic;
+
+    
     #endregion
 
     private void Start()
     {
-        volumeSlider.value = 1;
+        volumeSlider.value = defaultVolume;
     }
 
     private void Update()
@@ -32,6 +35,7 @@ public class PauseManager : MonoBehaviour
     public void BackToMenu() // loads main menu scene
     {
         SceneManager.LoadScene(0);
+        Time.timeScale = 1;
     }
 
     public void OpenOptions() // changes canvas to options menu

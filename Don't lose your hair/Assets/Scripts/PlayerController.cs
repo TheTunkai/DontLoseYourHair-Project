@@ -24,6 +24,8 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D playerRb;
     private BoxCollider2D playerCd;
     public Animator playerAnimator;
+
+    public ParticleSystem jumpParticleBurst;
     #endregion
 
     #region Events
@@ -50,8 +52,9 @@ public class PlayerController : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Space) && isOnGround && UIManager.instance.plushReserve - jumpCost >= 0) // make player jump if he is on the ground and play sound
             {
+                jumpParticleBurst.Play();
                 playerAnimator.SetBool("is_jumping_b", true);
-                AudioManager.instance.PlaySound(0, 0.8f, false);
+                AudioManager.instance.PlaySound(0, 0.6f, false);
                 playerRb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
                 UIManager.instance.plushReserve -= jumpCost;
                 isOnGround = false;
@@ -97,12 +100,12 @@ public class PlayerController : MonoBehaviour
         {
             if (UIManager.instance.plushReserve - collisionCost > 0)
             {
-                AudioManager.instance.PlaySound(1, 0.8f, false);
+                AudioManager.instance.PlaySound(1, 0.6f, false);
                 UIManager.instance.plushReserve -= collisionCost;
             }
             else
             {
-                AudioManager.instance.PlaySound(1, 0.8f, false);
+                AudioManager.instance.PlaySound(1, 0.6f, false);
                 UIManager.instance.plushReserve = 0;
             }
             
