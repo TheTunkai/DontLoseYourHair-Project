@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float collisionCost = 0.4f;
 
     [SerializeField] private bool isOnGround = true;
+    [SerializeField] private bool crouchEffectPlayed = false;
 
     public GameObject projectilePrefab;
     private Rigidbody2D playerRb;
@@ -26,6 +27,8 @@ public class PlayerController : MonoBehaviour
     public Animator playerAnimator;
 
     public ParticleSystem jumpParticleBurst;
+    public ParticleSystem crouchParticleEffect;
+    public ParticleSystem collisionEffect;
     #endregion
 
     #region Events
@@ -68,6 +71,7 @@ public class PlayerController : MonoBehaviour
             {
                 playerAnimator.SetBool("is_crouching_b", false);
                 playerCd.size = normalCdSize;
+                crouchEffectPlayed = false;
                 
             }
 
@@ -96,7 +100,7 @@ public class PlayerController : MonoBehaviour
             isOnGround = true;
         }
         
-        if (collision.collider.CompareTag("Obstacle")) // raises event upon collision and plays sound
+        if (collision.collider.CompareTag("Obstacle")) // raises event upon collision and plays sound and particle effect
         {
             if (UIManager.instance.plushReserve - collisionCost > 0)
             {
@@ -109,6 +113,8 @@ public class PlayerController : MonoBehaviour
                 UIManager.instance.plushReserve = 0;
             }
             
+            collisionEffect.Play();
+
             heartLost?.Invoke();
 
         }
@@ -116,6 +122,12 @@ public class PlayerController : MonoBehaviour
 
     public void Crouch() // scale player on y to half the height and substract cost from plush reserve
     {
+        if (!crouchEffectPlayed){
+
+            crouchParticleEffect.Play();
+
+            crouchEffectPlayed = true;
+        }
         if (UIManager.instance.plushReserve - crouchCost * Time.deltaTime >= 0)
         {
             playerAnimator.SetBool("is_crouching_b", true);
