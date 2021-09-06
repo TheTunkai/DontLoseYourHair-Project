@@ -10,8 +10,8 @@ public class MoveLeft : MonoBehaviour
     [SerializeField] private float leftBoundary = -21f;
     [SerializeField] private Vector3 startPosBackground = new Vector3(0f, 0f, 0f);
     [SerializeField] private Vector3 endPosBackground = new Vector3(-32f, 0f, -1f);
-    [SerializeField] private Vector3 startPosFloor = new Vector3(-0.73f, -2.35f, -1f);
-    [SerializeField] private Vector3 endPosFloor = new Vector3(-35.42f, -2.35f, -1f);
+    [SerializeField] private Vector3 startPosFloor = new Vector3(0.5f, -2.35f, -1f);
+    [SerializeField] private Vector3 endPosFloor = new Vector3(-35f, -2.35f, -1f);
     #endregion
 
 
