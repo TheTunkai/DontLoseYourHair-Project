@@ -135,7 +135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb37a516f5560984eb2b1587bb04db09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hearts: 2
+  hearts: 1
   speed: 22
   leftBoundary: -21
   suckInterval: 3

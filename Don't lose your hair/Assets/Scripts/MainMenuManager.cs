@@ -8,9 +8,21 @@ using System;
 public class MainMenuManager : MonoBehaviour
 {
     #region Variables
+    [SerializeField] private float defaultVolume = 0.6f;
+    public AudioSource menuMusic;
     public Canvas optionsMenu;
     public Canvas mainMenu;
+    public Slider volumeSlider;
     #endregion
+
+    private void Start()
+    {
+
+        menuMusic.volume = defaultVolume;
+        volumeSlider.value = defaultVolume;
+
+    }
+
 
     public void StartGame() // loads main game scene
     {
@@ -27,5 +39,10 @@ public class MainMenuManager : MonoBehaviour
     {
         mainMenu.gameObject.SetActive(true);
         optionsMenu.gameObject.SetActive(false);
+    }
+
+    public void ChangeVolume()
+    {
+        menuMusic.volume = volumeSlider.value;
     }
 }
