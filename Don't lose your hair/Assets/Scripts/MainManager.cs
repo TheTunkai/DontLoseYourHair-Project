@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class MainManager : MonoBehaviour
 {
@@ -37,7 +38,10 @@ public class MainManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (inputText == null && SceneManager.GetActiveScene().name == "MainMenu")
+        {
+            inputText = GameObject.Find("InputName").GetComponent<Text>();
+        }
     }
 
     public void SetGameDifficulty(string difficultySetting){

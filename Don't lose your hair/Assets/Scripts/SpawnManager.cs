@@ -11,7 +11,8 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private Vector2 spawnPosShoot = new Vector2(20f, 0.55f);
     [SerializeField] private Vector2 spawnPosFlyingEnemy = new Vector2(19f, 3f);
     [SerializeField] private float obstacleSpawnRate = 3f;
-    [SerializeField] private float enemySpawnRate = 5f;
+    [SerializeField] private float enemySpawnRate = 8f;
+    [SerializeField] private int enemiesToSpawn = 1;
     [SerializeField] private int enemyWaveTracker = 1;
 
     [SerializeField] private bool enemySpawnStarted = false;
@@ -28,6 +29,20 @@ public class SpawnManager : MonoBehaviour
         GameManager.instance.playerLost += OnPlayerDie;
       
         StartCoroutine(SpawningObstacles());
+
+        if (MainManager.instance.difficulty == Difficulty.Easy)
+        {
+            obstacleSpawnRate = 3f;
+        }
+        else if (MainManager.instance.difficulty == Difficulty.Medium)
+        {
+            obstacleSpawnRate = 2f;
+        }
+        else if (MainManager.instance.difficulty == Difficulty.Hard)
+        {
+            obstacleSpawnRate = 1.5f;
+        }
+        
     }
 
     private void OnPlayerDie() // stops coroutines when player lost
@@ -93,8 +108,21 @@ public class SpawnManager : MonoBehaviour
 
     IEnumerator SpawningEnemies(int waveNumber) // starts enemy spawning with given rate and number of enemies
     {
-        
-        int enemiesToSpawn = waveNumber * 2;
+        if (MainManager.instance.difficulty == Difficulty.Easy)
+        {
+            enemiesToSpawn = waveNumber;
+            enemySpawnRate = 8f;
+        }
+        else if (MainManager.instance.difficulty == Difficulty.Medium)
+        {
+            enemiesToSpawn = waveNumber + 1;
+            enemySpawnRate = 6f;
+        }
+        else if (MainManager.instance.difficulty == Difficulty.Hard)
+        {
+            enemiesToSpawn = waveNumber * 2;
+            enemySpawnRate = 4f;
+        }
 
         while(GameManager.instance.enemyCount < enemiesToSpawn)
         {
