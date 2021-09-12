@@ -19688,6 +19688,7 @@ MonoBehaviour:
   spawnPosFlyingEnemy: {x: 19, y: 3}
   obstacleSpawnRate: 3
   enemySpawnRate: 4
+  enemiesToSpawn: 1
   enemyWaveTracker: 1
   enemySpawnStarted: 0
   obstaclePrefabs:
