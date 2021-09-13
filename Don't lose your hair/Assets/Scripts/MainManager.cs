@@ -9,11 +9,13 @@ public class MainManager : MonoBehaviour
 {
     # region Variables
     public string playerName = null;
-    public int highScore;
+    public int highScore = 0;
+    public string playerNameHighScore = "";
     public Difficulty difficulty = Difficulty.Easy;
 
 
     public Text inputText;
+    public Text highScoreText;
     public static MainManager instance;
     # endregion
     // called before Start
@@ -34,7 +36,8 @@ public class MainManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        LoadHighScore();
+        highScoreText.text = "High Score " + "(" + playerNameHighScore + ") " + ": " + highScore;
     }
 
     // Update is called once per frame
@@ -44,6 +47,13 @@ public class MainManager : MonoBehaviour
         {
             inputText = GameObject.Find("InputName").GetComponent<Text>();
         }
+        if (highScoreText == null && SceneManager.GetActiveScene().name == "MainMenu")
+        {
+            highScoreText = GameObject.Find("HighScoreText").GetComponent<Text>();
+            LoadHighScore();
+            highScoreText.text = "High Score " + "(" + playerNameHighScore + ") " + ": " + highScore;
+        }
+
     }
 
     public void SetGameDifficulty(string difficultySetting){
@@ -73,12 +83,14 @@ public class MainManager : MonoBehaviour
     class SaveData
     {
         public int highScore;
+        public string playerName;
     }
 
-    public void SaveHighScore(int score)
+    public void SaveHighScore(int score, string name)
     {
         SaveData data = new SaveData();
         data.highScore = score;
+        data.playerName = name;
         string json = JsonUtility.ToJson(data);
 
         File.WriteAllText(Application.persistentDataPath + "/savefile.json", json);
@@ -95,6 +107,7 @@ public class MainManager : MonoBehaviour
             SaveData data = JsonUtility.FromJson<SaveData>(json);
 
             highScore = data.highScore;
+            playerNameHighScore = data.playerName;
         }
     }
     

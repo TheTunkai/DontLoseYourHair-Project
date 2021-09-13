@@ -123,6 +123,11 @@ public class GameManager : MonoBehaviour
             gameOverCalled = true;
             gameOverMenu.SetActive(true);
             endScoreText.text = "Your Score: " + playerScore;
+            if (playerScore > MainManager.instance.highScore && MainManager.instance.difficulty == Difficulty.Hard)
+            {
+                MainManager.instance.SaveHighScore(playerScore, MainManager.instance.playerName);
+            }
+            
             playerLost?.Invoke();
         }
 
