@@ -11,6 +11,7 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private Vector2 spawnPosShoot = new Vector2(20f, 0.55f);
     [SerializeField] private Vector2 spawnPosFlyingEnemy = new Vector2(19f, 3f);
     [SerializeField] private float obstacleSpawnRate = 3f;
+    [SerializeField] private float difficultyFactor = 0.1f;
     [SerializeField] private float enemySpawnRate = 8f;
     [SerializeField] private int enemiesToSpawn = 1;
     [SerializeField] private int enemyWaveTracker = 1;
@@ -27,21 +28,23 @@ public class SpawnManager : MonoBehaviour
     {
         GameManager.instance.startEnemyWave += OnEnemySpawnSignal;
         GameManager.instance.playerLost += OnPlayerDie;
-      
-        StartCoroutine(SpawningObstacles());
 
         if (MainManager.instance.difficulty == Difficulty.Easy)
         {
-            obstacleSpawnRate = 3f;
+            obstacleSpawnRate = 4f;
         }
         else if (MainManager.instance.difficulty == Difficulty.Medium)
         {
-            obstacleSpawnRate = 2f;
+            obstacleSpawnRate = 3f;
         }
         else if (MainManager.instance.difficulty == Difficulty.Hard)
         {
-            obstacleSpawnRate = 1.5f;
+            obstacleSpawnRate = 2f;
         }
+
+        StartCoroutine(SpawningObstacles());
+
+        
         
     }
 
@@ -102,6 +105,8 @@ public class SpawnManager : MonoBehaviour
         if (!enemySpawnStarted)
         {
             enemySpawnStarted = true;
+            
+
             StartCoroutine(SpawningEnemies(enemyWaveTracker));
         }
     }
@@ -112,16 +117,31 @@ public class SpawnManager : MonoBehaviour
         {
             enemiesToSpawn = waveNumber;
             enemySpawnRate = 8f;
+
+            if(obstacleSpawnRate - obstacleSpawnRate * difficultyFactor >= 2)
+            {
+                obstacleSpawnRate = obstacleSpawnRate - obstacleSpawnRate * difficultyFactor;
+            }
         }
         else if (MainManager.instance.difficulty == Difficulty.Medium)
         {
             enemiesToSpawn = waveNumber + 1;
             enemySpawnRate = 6f;
+
+            if(obstacleSpawnRate - obstacleSpawnRate * difficultyFactor >= 1.5)
+            {
+                obstacleSpawnRate = obstacleSpawnRate - obstacleSpawnRate * difficultyFactor;
+            }
         }
         else if (MainManager.instance.difficulty == Difficulty.Hard)
         {
             enemiesToSpawn = waveNumber * 2;
             enemySpawnRate = 4f;
+
+            if(obstacleSpawnRate - obstacleSpawnRate * difficultyFactor >= 1)
+            {
+                obstacleSpawnRate = obstacleSpawnRate - obstacleSpawnRate * difficultyFactor;
+            }
         }
 
         while(GameManager.instance.enemyCount < enemiesToSpawn)

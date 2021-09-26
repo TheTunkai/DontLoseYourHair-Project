@@ -12,6 +12,7 @@ public class MainMenuManager : MonoBehaviour
     public AudioSource menuMusic;
     public Canvas optionsMenu;
     public Canvas mainMenu;
+    public Canvas creditsMenu;
     public Slider volumeSlider;
     #endregion
 
@@ -39,6 +40,18 @@ public class MainMenuManager : MonoBehaviour
     {
         mainMenu.gameObject.SetActive(true);
         optionsMenu.gameObject.SetActive(false);
+    }
+
+    public void OpenCredits()
+    {
+        optionsMenu.gameObject.SetActive(false);
+        creditsMenu.gameObject.SetActive(true);
+    }
+
+    public void CloseCredits()
+    {
+        creditsMenu.gameObject.SetActive(false);
+        optionsMenu.gameObject.SetActive(true);
     }
 
     public void ChangeVolume()
