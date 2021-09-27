@@ -7,7 +7,7 @@ using System;
 public class UIManager : MonoBehaviour
 {
     #region Variables
-    public float plushReserve = 1;
+    public float plushReserve = 2;
     private float plushRefillRate = 0.2f;
 
     public static UIManager instance;
