@@ -13,9 +13,22 @@ public class MainMenuManager : MonoBehaviour
     public Canvas optionsMenu;
     public Canvas mainMenu;
     public Canvas creditsMenu;
+    public Canvas tutorialMenu;
     public Slider volumeSlider;
     #endregion
 
+    private void Awake() 
+    {
+        Canvas[] subMenus = new Canvas[] {optionsMenu, creditsMenu, tutorialMenu};
+        mainMenu.gameObject.SetActive(true);
+
+        for (int i = 0; i < subMenus.Length; i++)
+        {
+            subMenus[i].gameObject.SetActive(false);
+        }
+
+
+    }
     private void Start()
     {
 
@@ -51,6 +64,18 @@ public class MainMenuManager : MonoBehaviour
     public void CloseCredits()
     {
         creditsMenu.gameObject.SetActive(false);
+        optionsMenu.gameObject.SetActive(true);
+    }
+
+    public void OpenTutorial()
+    {
+        tutorialMenu.gameObject.SetActive(true);
+        optionsMenu.gameObject.SetActive(false);
+    }
+
+    public void CloseTutorial()
+    {
+        tutorialMenu.gameObject.SetActive(false);
         optionsMenu.gameObject.SetActive(true);
     }
 
