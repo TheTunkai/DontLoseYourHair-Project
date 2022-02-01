@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
     #endregion
 
     // Start is called before the first frame update
-    void Awake()
+    private void Awake()
     {
         if (instance != null) // makes singleton instance
         {
