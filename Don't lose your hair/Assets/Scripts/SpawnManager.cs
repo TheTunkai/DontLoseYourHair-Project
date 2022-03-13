@@ -7,7 +7,7 @@ public class SpawnManager : MonoBehaviour
 {
     #region Variables
     [SerializeField] private Vector2 spawnPosJump = new Vector2(20f, -2f);
-    [SerializeField] private Vector2 spawnPosCrouch = new Vector2(20f, 0.8f);
+    [SerializeField] private Vector2 spawnPosCrouch = new Vector2(20f, 0f);
     [SerializeField] private Vector2 spawnPosShoot = new Vector2(20f, 0.55f);
     [SerializeField] private Vector2 spawnPosFlyingEnemy = new Vector2(19f, 3f);
     [SerializeField] private float obstacleSpawnRate = 3f;

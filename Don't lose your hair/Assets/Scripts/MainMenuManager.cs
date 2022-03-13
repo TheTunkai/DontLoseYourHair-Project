@@ -8,6 +8,7 @@ using System;
 public class MainMenuManager : MonoBehaviour
 {
     #region Variables
+
     [SerializeField] private float defaultVolume = 0.6f;
     public AudioSource menuMusic;
     public Canvas optionsMenu;
@@ -15,9 +16,10 @@ public class MainMenuManager : MonoBehaviour
     public Canvas creditsMenu;
     public Canvas tutorialMenu;
     public Slider volumeSlider;
+
     #endregion
 
-    private void Awake() 
+    private void Awake()
     {
         Canvas[] subMenus = new Canvas[] {optionsMenu, creditsMenu, tutorialMenu};
         mainMenu.gameObject.SetActive(true);
@@ -26,21 +28,23 @@ public class MainMenuManager : MonoBehaviour
         {
             subMenus[i].gameObject.SetActive(false);
         }
-
-
     }
+
     private void Start()
     {
-
         menuMusic.volume = defaultVolume;
         volumeSlider.value = defaultVolume;
-
     }
 
 
     public void StartGame() // loads main game scene
     {
         SceneManager.LoadScene(1);
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 
     public void OpenOptions() // changes to options menu

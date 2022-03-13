@@ -7,7 +7,7 @@ public class EnemyFlying : Enemy
 {
     #region Variables
     [SerializeField] private int suckInterval = 4;
-    [SerializeField] private Vector2 endPosition = new Vector2(-8f, 3f);
+    [SerializeField] private Vector2 endPosition = new Vector2(-5f, 3f);
     [SerializeField] private float suckSpeed = 0.3f;
 
     [SerializeField] private bool suckingStarted = false;

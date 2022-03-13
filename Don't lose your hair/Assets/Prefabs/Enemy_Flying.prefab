@@ -136,10 +136,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hearts: 1
-  speed: 22
-  leftBoundary: -21
+  speed: 20
+  leftBoundary: -20
   suckInterval: 3
-  endPosition: {x: -7, y: 3}
+  endPosition: {x: -5, y: 3}
   suckSpeed: 0.2
   suckingStarted: 0
   enemyAnimator: {fileID: 475256213479276073}

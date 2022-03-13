@@ -70,8 +70,6 @@ public class MainManager : MonoBehaviour
         {
             difficulty = Difficulty.Hard;
         }
-
-        Debug.Log("Difficulty set to " + difficulty);
     }
 
     public void SetPlayerName()
@@ -110,7 +108,6 @@ public class MainManager : MonoBehaviour
             playerNameHighScore = data.playerName;
         }
     }
-    
 }
 
 
